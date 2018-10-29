@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sale;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SaleController extends Controller
 {
@@ -14,17 +15,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Sale::all();
     }
 
     /**
@@ -35,7 +26,8 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Sale::create($request->all());
+        return response('Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -46,18 +38,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sale $sale)
-    {
-        //
+        return $sale;
     }
 
     /**
@@ -69,7 +50,8 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
-        //
+        $sale->update($request->all());
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -80,6 +62,6 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
     }
 }
