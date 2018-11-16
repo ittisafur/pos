@@ -92,5 +92,8 @@
                 </div>
             </div>
         </div>
+        <v-app>
+        // all your vuetify components
+        </v-app>
     </body>
 </html>

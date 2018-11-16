@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::latest()->get();
+        return Product::all();
     }
 
     /**
@@ -63,6 +63,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return "nunu";
+        // return response(null, Response::HTTP_NO_CONTENT);
     }
 }
