@@ -11,9 +11,12 @@
 						<button class="btnspace waves-effect waves-light btn-small">Add Product</button>
 					</router-link>
 
-					<!-- <router-link>
+					<router-link to="/category/add">
 						<button class="btnspace waves-effect waves-light btn-small">Add Category</button>
-					</router-link>	 -->			
+					</router-link>	
+					<router-link to="/customer/add">
+						<button class="btnspace waves-effect waves-light btn-small">Add Customer</button>
+					</router-link>		
 				</div>
 			</div>
 			<div class="row">

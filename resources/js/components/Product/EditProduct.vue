@@ -31,10 +31,6 @@
           <div class="row">
             <div class="col s3">
               <button @click.prevent="editProduct" class="mc-1 waves-effect waves-light btn-small">Submit</button> 
-
-            </div>
-            <div class="col s4">
-              <button @click.prevent="editProduct" class="mc-1 waves-effect waves-light btn-small">Submit</button> 
             </div>
           </div>
         </form>
@@ -58,8 +54,15 @@
     },
     methods:{
       editProduct(){
-          axios.put(`/api/products/${this.$router.params.id}`, this.product)
-          .then(res => this.$router.push('/home'))
+          axios.put(`/api/products/${this.$route.params.id}`, this.product)
+          .then(res => {
+            alert(`Updated Product - ${this.product.name}`)
+            if (confirm('Do you want to continue editing ?')) {
+              false
+            }else {
+              this.$router.push('/home')
+            }
+          })
           .catch(err => console.log(err));
       }
     }
