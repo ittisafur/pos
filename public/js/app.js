@@ -46441,7 +46441,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.brand-logo[data-v-3f625100]{\n  margin-left: 15px;\n}\n", ""]);
+exports.push([module.i, "\n.brand-logo[data-v-3f625100]{\n  margin-left: 15px;\n}\n.sm-font[data-v-3f625100]{\n  font-size: 22px;\n}\n", ""]);
 
 // exports
 
@@ -46489,7 +46489,7 @@ var render = function() {
         { staticClass: "nav-wrapper" },
         [
           _c("router-link", { attrs: { to: "/home" } }, [
-            _c("a", { staticClass: "brand-logo" }, [
+            _c("a", { staticClass: "sm-font brand-logo" }, [
               _vm._v("Point of Sales ( POS )")
             ])
           ]),
@@ -46583,7 +46583,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.btnspace[data-v-24b0e927]{\n\tmargin: 55px 0px 10px 10px;\n}\nh1[data-v-24b0e927]{\n\tfont-size: 3.5rem;\n}\n", ""]);
+exports.push([module.i, "\n.btnspace[data-v-24b0e927]{\n\tmargin: 55px 0px 10px 10px;\n}\nh1[data-v-24b0e927]{\n\tfont-size: 3.5rem;\n}\n.point[data-v-24b0e927]{\n\tcursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -46656,34 +46656,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 // import GetProduct from '../Product/GetProduct.vue'
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			Products: []
+			Products: [],
+			search: ''
 		};
 	},
 	created: function created() {
 		this.fetchProducts();
 	},
 
-	components: {},
-	methods: {
-		fetchProducts: function fetchProducts() {
+	computed: {
+		filterSearch: function filterSearch() {
 			var _this = this;
 
+			return this.Products.filter(function (product) {
+				return product.name.match(_this.search);
+			});
+		}
+	},
+	methods: {
+		fetchProducts: function fetchProducts() {
+			var _this2 = this;
+
 			axios.get('/api/products').then(function (res) {
-				_this.Products = res.data;
+				_this2.Products = res.data;
 			});
 		},
 		deleteProducts: function deleteProducts(id) {
-			var _this2 = this;
+			var _this3 = this;
 
 			if (confirm("Are you Sure")) {
-				axios.delete("api/products/" + id).then(function (res) {
-					_this2.fetchProducts();
+				axios.delete('api/products/' + id).then(function (res) {
+					_this3.fetchProducts();
 				}).catch(function (err) {
 					return console.log(err);
 				});
@@ -46739,12 +46747,38 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search,
+                expression: "search"
+              }
+            ],
+            staticClass: "validate",
+            attrs: {
+              type: "text",
+              id: "myInput",
+              placeholder: "Search for Products.."
+            },
+            domProps: { value: _vm.search },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
           _c("table", { staticClass: "table table-condensed" }, [
             _vm._m(1),
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.Products, function(Item, i) {
+              _vm._l(_vm.filterSearch, function(Item, i) {
                 return _c("tr", { key: Item.id }, [
                   _c("td", [_vm._v(_vm._s(i + 1))]),
                   _vm._v(" "),
@@ -46772,6 +46806,7 @@ var render = function() {
                     _c(
                       "a",
                       {
+                        staticClass: "point",
                         on: {
                           click: function($event) {
                             $event.preventDefault()
@@ -50984,7 +51019,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.btnspace{\n\tmargin: 55px 0px 10px 10px;\n}\nh1{\n\tfont-size: 3.5rem;\n}\n.sale-li > a{\n\tcursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -51003,8 +51038,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			products: [],
+			search: ''
+		};
+	},
+	created: function created() {
+		this.fetchProducts();
+	},
+
+	computed: {
+		filterSearch: function filterSearch() {
+			var _this = this;
+
+			return this.products.filter(function (product) {
+				return product.name.match(_this.search);
+			});
+		}
+	},
+	methods: {
+		fetchProducts: function fetchProducts() {
+			var _this2 = this;
+
+			axios.get('/api/products').then(function (res) {
+				return _this2.products = res.data;
+			});
+		}
+	}
+});
 
 /***/ }),
 /* 101 */
@@ -51014,9 +51100,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("v-container", [_c("h1", [_vm._v("Sale")])])], 1)
+  return _c("div", [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col s9" },
+          [
+            _c("router-link", { attrs: { to: "/customer" } }, [
+              _c(
+                "button",
+                { staticClass: "btnspace waves-effect waves-light btn-small" },
+                [_vm._v("View Customers")]
+              )
+            ])
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col s4" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search,
+                expression: "search"
+              }
+            ],
+            staticClass: "validate",
+            attrs: {
+              type: "text",
+              id: "myInput",
+              placeholder: "Search for Products.."
+            },
+            domProps: { value: _vm.search },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.search = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "ul",
+            { staticClass: "collection" },
+            _vm._l(_vm.filterSearch, function(product) {
+              return _c("li", { key: product.id, staticClass: "sale-li" }, [
+                _c("a", { staticClass: "collection-item" }, [
+                  _vm._v(_vm._s(product.name))
+                ])
+              ])
+            })
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s8" })
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col s3" }, [_c("h1", [_vm._v("Sales")])])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -51033,13 +51191,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(121)
+  __webpack_require__(103)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(105)
 /* template */
-var __vue_template__ = __webpack_require__(123)
+var __vue_template__ = __webpack_require__(106)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -51078,8 +51236,46 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 103 */,
-/* 104 */,
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(104);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("3d8ae334", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d3dbe56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Customer.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d3dbe56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Customer.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.btnspace[data-v-6d3dbe56]{\n\tmargin: 55px 0px 10px 10px;\n}\nh1[data-v-6d3dbe56]{\n\tfont-size: 3.5rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -51174,7 +51370,139 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 106 */,
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col s9" },
+          [
+            _c("router-link", { attrs: { to: "/home" } }, [
+              _c(
+                "button",
+                { staticClass: "btnspace waves-effect waves-light btn-small" },
+                [_vm._v("Back to Home")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("router-link", { attrs: { to: "/customer/add" } }, [
+              _c(
+                "button",
+                { staticClass: "btnspace waves-effect waves-light btn-small" },
+                [_vm._v("Add Customer")]
+              )
+            ])
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c(
+            "table",
+            { staticClass: "table table-condensed" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.customers, function(customer, i) {
+                return _c("tbody", { key: customer.id }, [
+                  _c("tr", [
+                    _c("td", [_vm._v(_vm._s(i + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(customer.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(customer.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(customer.cellno))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "customer/edit/" + customer.id } },
+                          [_c("i", { staticClass: "far fa-edit" })]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.deleteCustomer(customer.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "far fa-trash-alt" })]
+                      )
+                    ])
+                  ])
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col s3" }, [
+      _c("h1", [_vm._v("Customer")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Serial Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cell Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Edit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Delete")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6d3dbe56", module.exports)
+  }
+}
+
+/***/ }),
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51759,182 +52087,6 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(122);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("3d8ae334", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d3dbe56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Customer.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d3dbe56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Customer.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.btnspace[data-v-6d3dbe56]{\n\tmargin: 55px 0px 10px 10px;\n}\nh1[data-v-6d3dbe56]{\n\tfont-size: 3.5rem;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 123 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col s9" },
-          [
-            _c("router-link", { attrs: { to: "/home" } }, [
-              _c(
-                "button",
-                { staticClass: "btnspace waves-effect waves-light btn-small" },
-                [_vm._v("Back to Home")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("router-link", { attrs: { to: "/customer/add" } }, [
-              _c(
-                "button",
-                { staticClass: "btnspace waves-effect waves-light btn-small" },
-                [_vm._v("Add Customer")]
-              )
-            ])
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c(
-            "table",
-            { staticClass: "table table-condensed" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._l(_vm.customers, function(customer, i) {
-                return _c("tbody", { key: customer.id }, [
-                  _c("tr", [
-                    _c("td", [_vm._v(_vm._s(i + 1))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(customer.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(customer.email))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(customer.cellno))]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: "customer/edit/" + customer.id } },
-                          [_c("i", { staticClass: "far fa-edit" })]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              _vm.deleteCustomer(customer.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "far fa-trash-alt" })]
-                      )
-                    ])
-                  ])
-                ])
-              })
-            ],
-            2
-          )
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col s3" }, [
-      _c("h1", [_vm._v("Customer")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Serial Number")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Cell Number")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Edit")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Delete")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6d3dbe56", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

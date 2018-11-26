@@ -21,6 +21,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<input type="text" id="myInput" v-model="search" class="validate" placeholder="Search for Products..">
 					<table class="table table-condensed" >
 					    <thead>
 					      <tr>
@@ -34,7 +35,7 @@
 					      </tr>
 					    </thead>
 					    <tbody>
-					      <tr v-for="(Item, i) in Products" :key="Item.id">
+					      <tr v-for="(Item, i) in filterSearch" :key="Item.id">
 					        <td>{{i+1}}</td>
 					        <td>{{Item.name}}</td>
 					        <td>{{Item.buy_price}}</td>
@@ -46,7 +47,7 @@
 					        	</router-link>
 					        </td>
 					        <td>
-					        	<a @click.prevent="deleteProducts(Item.id)">
+					        	<a class="point" @click.prevent="deleteProducts(Item.id)">
 					        		<i class="far fa-trash-alt"></i>
 					        	</a>
 					        </td>
@@ -56,8 +57,6 @@
 				</div>
 			</div>
 		</div>
-		
-		
 	</div>
 </template>
 
@@ -67,13 +66,18 @@ export default {
 	data(){
 		return {
 			Products: [],
+			search: ''
 		}		
 	},
 	created(){	
 		this.fetchProducts()
 	},
-	components:{
-		
+	computed:{
+		filterSearch(){
+			return this.Products.filter((product)=>{
+				return product.name.match(this.search)
+			})
+		}
 	},
 	methods:{
 		fetchProducts(){
@@ -99,5 +103,8 @@ export default {
 	}
 	h1{
 		font-size: 3.5rem;
+	}
+	.point{
+		cursor: pointer;
 	}
 </style>

@@ -3,7 +3,7 @@
     <nav>
       <div class="nav-wrapper">
         <router-link to="/home">
-          <a class="brand-logo">Point of Sales ( POS )</a>
+          <a class="sm-font brand-logo">Point of Sales ( POS )</a>
         </router-link>
         
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -26,5 +26,8 @@ export default {
 <style scoped>
 .brand-logo{
   margin-left: 15px;
+}
+.sm-font{
+  font-size: 22px;
 }
 </style>

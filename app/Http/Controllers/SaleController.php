@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sale;
+use App\Product;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +28,7 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         Sale::create($request->all());
+        Product::where('id', $request->get('product_id'))->decrement('stock', 1);
         return response('Created', Response::HTTP_CREATED);
     }
 
