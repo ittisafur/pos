@@ -1,6 +1,6 @@
 ## Point of Sales Management System ( POS )
 
-<p align="center">
+<p>
 Edit your .env file and change the database and username to your preference and if you have password in your database give that too.if you don't see .env file. Type the following code in your terminal.
 
 ``` cp .env.example .env ```
